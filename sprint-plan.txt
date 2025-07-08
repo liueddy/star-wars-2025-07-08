@@ -1,0 +1,14 @@
+Given the nature of the project--with parts two and three dependant on part one--we found it imperitive that part one be handled first.  
+Using this method, we would be able to tackle parts two and three concurrently. 
+
+We also found it imperitive to work in different files such that we would not adversely interfere with one another or produce merge conflicts.
+
+As such, the plan is:
+
+Tuesday afternoon:
+- Part 1 - Eddy
+
+Wednesday Morning
+- Part 2 - Archit
+- Part 3 - Kalid
+- Bonus? - Eddy
