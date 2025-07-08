@@ -1,0 +1,12 @@
+Given lines 13-25 in the generate_data.py file,
+which side a character chooses looks directly 
+linked to the rebel_likelihood field in 
+home_worlds.json.
+
+Additionally, because every other parameter
+besides home_worlds is randomly generated 
+without due regard for what "side" a given
+character is on, it is almost certainly
+the case that these features will not 
+be important.  I fully expect these 
+features have weights nearly zero.
