@@ -43,7 +43,7 @@ print(X_train.columns)
 model = DecisionTreeClassifier()
 # model = LogisticRegression()
 
-def train_score(model,y):
+def train_score(model):
     """train then score the model"""
     model.fit(X_train,y_train)
     trscore = model.score(X_train,y_train)
@@ -56,19 +56,8 @@ def train_score(model,y):
     return model
 
 # train and score model
-model = train_score(model,y)
+model = train_score(model)
 
 if __name__ == "__main__":
     # save model to pkl file
     joblib.dump(model, 'pkl/model.pkl')
-
-# for i in range(len(model.feature_names_in_)):
-#     print(
-#         t_df.columns[i],model.feature_importances_[i]
-#     )
-# print("intercept\n",model.intercept_)
-# print("coef\n",model.coef_)
-
-# plt.figure(figsize=(20,15))
-# sklearn.tree.plot_tree(model)
-# plt.savefig("decision_tree.png")
