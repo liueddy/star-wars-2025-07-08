@@ -26,9 +26,6 @@ X = pproc.fit_transform(df.loc[:,df.columns != str(y_col_name)])
 y = pd.DataFrame(df[str(y_col_name)]=="resistance").rename({"empire_or_resistance":"is_rebel"})
 pproc.save()
 
-# init predict column
-# y_col = "empire_or_resistance_resistance"
-
 # split to 60-20-20 train-val-test
 def tvt(X,y):
     X_train,X_test,y_train,y_test = sklearn.model_selection.train_test_split(X,      y,      stratify=y,      test_size=0.2)
