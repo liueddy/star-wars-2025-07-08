@@ -108,7 +108,7 @@ if __name__ == "__main__":
                                 "destination_x",
                                 "destination_y",
                                 "homeworld"])
-    p = Processor()
+    p = PProcessor()
     p.fit(df)
     p.save("pkl/processor.pkl")
     pt = p.load("pkl/processor.pkl")
