@@ -9,6 +9,17 @@ class SWDantic(BaseModel):
     unit_type: Literal["stormtrooper", "tie_fighter", "at-st", "x-wing",
             "resistance_soldier", "at-at", "tie_silencer", "unknown"]
     
+
+    
+    # this kinda does not matter, but if you want to specify, 
+    # this class will not stop you from inputing.
+    location_x: float = 0
+    location_y: float = 0
+    destination_x: float = 0
+    destination_y: float = 0
+    # this is a placeholder and not used in the model
+    empire_or_resistance:str = "empire" 
+
     # valid homeworlds based on home_worlds.json
     homeworld: Literal['Tatooine', 'Alderaan', 'Naboo', 'Kashyyyk', 
                        'Stewjon', 'Eriadu', 'Corellia', 'Rodia', 
@@ -20,10 +31,3 @@ class SWDantic(BaseModel):
                        'Quermia', 'Dorin', 'Champala', 'Mirial', 'Serenno', 
                        'Concord Dawn', 'Zolan', 'Ojom', 'Skako', 'Muunilinst', 
                        'Shili', 'Kalee', 'Umbara']
-    
-    # this kinda does not matter, but if you want to specify, 
-    # this class will not stop you from inputing.
-    location_x: float = 0
-    location_y: float = 0
-    destination_x: float = 0
-    destination_y: float = 0

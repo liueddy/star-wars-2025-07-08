@@ -32,7 +32,7 @@ def tvt(X,y_col):
 
 # perform split:
 train,val,test = tvt(t_df,y_col)
-# print(train.columns)
+print(train.columns)
 
 # init model
 model = DecisionTreeClassifier()
@@ -49,8 +49,8 @@ def train_score(model,y_col):
     print("test: ",tescore)
     return model
 
-# train and score model 
-train_score(model,y_col)
+# train and score model
+model = train_score(model,y_col)
 
 if __name__ == "__main__":
     # save model to pkl file

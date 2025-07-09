@@ -20,12 +20,14 @@ def ping():
 
 @app.route("/predict",methods=["POST"])
 def predict():
+    print(request.args)
     try:
-        return {"message":{"prediction":{"is_resistance":v.run(request.args)}}}, 200
+        return {"message":{"prediction":{"is_resistance":v.run(request.args,
+                                                               y_col="empire_or_resistance_resistance")}}}, 200
     except Exception as err:
         return "prediction failed" + str(err), 500
 
 if __name__ == '__main__':
-    v = validator.Validator("pkl/scaler.pkl","pkl/model.pkl",swdantic.SWDantic)
+    v = validator.Validator(proc_pkl="pkl/ptransformer.pkl",model_pkl="pkl/model.pkl",bmodel=swdantic.SWDantic)
     app.run()
     # app.run(debug=True)

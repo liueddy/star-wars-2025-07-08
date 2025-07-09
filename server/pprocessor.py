@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import joblib
 
-class PProcessor:
+class PProcessor():
     """The following class is a processor that handles data preparation both for training
     AND for non-training data.
     - The Processor class handles both numeric and categorical data.
@@ -76,10 +76,14 @@ class PProcessor:
         finally:
             return self.hasFitted
         
-    def transform(self,df:pd.DataFrame) -> pd.DataFrame:
+    def transform(self,df:pd.DataFrame,y_col:str="") -> pd.DataFrame:
         """uses fit to transform DataFrame"""
         assert self.hasFitted
-        return self.pt.transform(df)
+        if str(y_col)=="":
+            return self.pt.transform(df)
+        else:
+            transform = self.pt.transform(df)
+            return transform.loc[:,transform.columns != f"{y_col}"]
     
     def fit_transform(self,df:pd.DataFrame):
         """calls fit then transform on same data"""
@@ -114,7 +118,8 @@ if __name__ == "__main__":
                                 "homeworld"])
     p = PProcessor()
     p.fit(df)
-    p.save("pkl/ptransformer.pkl")
-    pt = p.load("pkl/ptransformer.pkl")
-    x = pt.transform(df)
-    print(x.tail())
+    """WARNING: DO NOT SAVE / LOAD FROM MAIN"""
+    # p.save("pkl/ptransformer.pkl")
+    # pt = p.load("pkl/ptransformer.pkl")
+    # x = pt.transform(df)
+    # print(x.tail())
