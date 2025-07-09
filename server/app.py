@@ -34,6 +34,6 @@ if __name__ == '__main__':
     v = validator.Validator(proc_pkl="pkl/ptransformer.pkl",
                             model_pkl="pkl/model.pkl",
                             bmodel=swdantic.SWDantic,
-                            y_col="empire_or_resistance_resistance")
+                            )
     app.run()
     # app.run(debug=True)

@@ -16,33 +16,40 @@ df = pd.read_csv("../troop_movements.csv",
                             "destination_y",
                             "homeworld"])
 
+# init y_col
+y_col_name = "empire_or_resistance"
+
 # perform fit_transform and save transformer
 pproc = PProcessor()
-t_df = pproc.fit_transform(df)
+X = pproc.fit_transform(df.loc[:,df.columns != str(y_col_name)])
+y = pd.DataFrame(df[str(y_col_name)]=="resistance").rename({"empire_or_resistance":"is_rebel"})
+print(y)
+print(type(y))
 pproc.save()
 
 # init predict column
-y_col = "empire_or_resistance_resistance"
+# y_col = "empire_or_resistance_resistance"
 
 # split to 60-20-20 train-val-test
-def tvt(X,y_col):
-    train,test = sklearn.model_selection.train_test_split(X,stratify=X.loc[:,y_col],test_size=0.2)
-    train,val  = sklearn.model_selection.train_test_split(train,stratify=train.loc[:,y_col],test_size=0.25)
-    return train, val, test
+def tvt(X,y):
+    X_train,X_test,y_train,y_test = sklearn.model_selection.train_test_split(X,      y,      stratify=y,      test_size=0.2)
+    # print(X_train.shape,X_test.shape,y_train.shape,y_test.shape)
+    X_train,X_val,y_train,y_val   = sklearn.model_selection.train_test_split(X_train,y_train,stratify=y_train,test_size=0.25)
+    return X_train,X_val,X_test,y_train,y_val,y_test
 
 # perform split:
-train,val,test = tvt(t_df,y_col)
-print(train.columns)
+X_train,X_val,X_test,y_train,y_val,y_test = tvt(X,y)
+print(X_train.columns)
 
 # init model
 model = DecisionTreeClassifier()
 
-def train_score(model,y_col):
+def train_score(model,y):
     """train then score the model"""
-    model.fit(train.loc[:,t_df.columns != f"{y_col}"],train.loc[:,f"{y_col}"])
-    trscore = model.score(train.loc[:,t_df.columns != f"{y_col}"],train.loc[:,f"{y_col}"])
-    vscore =  model.score(  val.loc[:,t_df.columns != f"{y_col}"],  val.loc[:,f"{y_col}"])
-    tescore = model.score( test.loc[:,t_df.columns != f"{y_col}"], test.loc[:,f"{y_col}"])
+    model.fit(X_train,y_train)
+    trscore = model.score(X_train,y_train)
+    vscore =  model.score(  X_val,  y_val)
+    tescore = model.score( X_test, y_test)
 
     print("train: ", trscore)
     print("val: ", vscore)
@@ -50,7 +57,7 @@ def train_score(model,y_col):
     return model
 
 # train and score model
-model = train_score(model,y_col)
+model = train_score(model,y)
 
 if __name__ == "__main__":
     # save model to pkl file

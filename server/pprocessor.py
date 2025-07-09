@@ -76,14 +76,10 @@ class PProcessor():
         finally:
             return self.hasFitted
         
-    def transform(self,df:pd.DataFrame,y_col:str="") -> pd.DataFrame:
+    def transform(self,df:pd.DataFrame) -> pd.DataFrame:
         """uses fit to transform DataFrame"""
         assert self.hasFitted
-        if str(y_col)=="":
-            return self.pt.transform(df)
-        else:
-            transform = self.pt.transform(df)
-            return transform.loc[:,transform.columns != f"{y_col}"]
+        return self.pt.transform(df)
     
     def fit_transform(self,df:pd.DataFrame):
         """calls fit then transform on same data"""

@@ -14,12 +14,12 @@ class Validator:
     This class must take in a valid ptransformer.pkl file and a valid model.pkl file.
     A pydantic BaseModel is optional but highly recommended.
     """
-    def __init__(self,proc_pkl,model_pkl,bmodel:BaseModel=None,y_col="") -> None:
+    def __init__(self,proc_pkl,model_pkl,bmodel:BaseModel=None) -> None:
         self.pproc = PProcessor()
         self.pproc.load(proc_pkl)
         self.model = joblib.load(str(model_pkl))
         self.bmodel = bmodel
-        self.y_col = str(y_col)
+        # self.y_col = str(y_col)
     
     def _uvalidate(self,uinput:dict) -> pd.DataFrame:
         """validates the given user input based on the given BaseModel"""
@@ -37,7 +37,7 @@ class Validator:
     def run(self, uinput) -> np.array:
         v_df = self._uvalidate(uinput)
         # print("\nv_df:\n",v_df)
-        t_df = self.pproc.transform(v_df,y_col=self.y_col)
+        t_df = self.pproc.transform(v_df)
         # print("\nt_df:\n",t_df)
         return self.model.predict(t_df).item()
     
@@ -68,7 +68,8 @@ if __name__ == "__main__":
     v = Validator("pkl/ptransformer.pkl",
                   "pkl/model.pkl",
                   swdantic.SWDantic,
-                  y_col="empire_or_resistance_resistance")
+                #   y_col="empire_or_resistance_resistance"
+                  )
     print(v.run({
         "unit_type":"resistance_soldier",
         "homeworld":"Stewjon",

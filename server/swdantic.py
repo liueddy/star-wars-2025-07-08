@@ -10,7 +10,7 @@ class SWDantic(BaseModel):
             "resistance_soldier", "at-at", "tie_silencer", "unknown"]
 
     # this is a placeholder and not used in the model
-    empire_or_resistance:str = "resistance"
+#     empire_or_resistance:str = "resistance"
 
     # this likely does not matter, but if you want to specify, 
     # this class will not stop you from inputing.
