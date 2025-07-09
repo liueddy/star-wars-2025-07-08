@@ -47,27 +47,26 @@ class PProcessor:
             self.pnum = pnum
             self.pcat = pcat
 
-        def transform(self,df:pd.DataFrame):
+        def transform(self,df:pd.DataFrame) -> pd.DataFrame:
+            """Transforms DataFrame based on pre-fit preprocessors"""
             x1 = self.pnum.transform(df.select_dtypes(include="number"))
             x2 = self.pcat.transform(df.select_dtypes(exclude="number")).astype(int)
             return pd.merge(left=x1,right=x2,how="outer",on=x1.index).drop("key_0",axis=1)
         
         def __repr__(self):
+            """Overwrite repr"""
             return f"PTransformer(pnum={self.pnum}, pcat={self.pcat})" 
 
     def _fit_num(self,df:pd.DataFrame):
         """returns a trained processor object for numeric data"""
-        return self.pnum.fit(
-            df.select_dtypes(include="number")
-        )
+        return self.pnum.fit(df.select_dtypes(include="number"))
     
     def _fit_cat(self,df:pd.DataFrame):
         """returns a trained processor object for categoric data"""
-        return self.pcat.fit(
-            df.select_dtypes(exclude="number")
-        )
+        return self.pcat.fit(df.select_dtypes(exclude="number"))
     
-    def fit(self,df:pd.DataFrame):
+    def fit(self,df:pd.DataFrame) -> bool:
+        """Tries fitting, returns whether successfully fit or not"""
         try:
             self._fit_num(df)
             self._fit_cat(df)
@@ -77,11 +76,13 @@ class PProcessor:
         finally:
             return self.hasFitted
         
-    def transform(self,df:pd.DataFrame):
+    def transform(self,df:pd.DataFrame) -> pd.DataFrame:
+        """uses fit to transform DataFrame"""
         assert self.hasFitted
         return self.pt.transform(df)
     
     def fit_transform(self,df:pd.DataFrame):
+        """calls fit then transform on same data"""
         self.fit(df)
         return self.transform(df)
 
@@ -91,6 +92,9 @@ class PProcessor:
         joblib.dump(self.pt,str(filepath))
     
     def load(self,filepath):
+        """load from pkl file
+        @throws exception when obj not a PTransformer
+        """
         obj = joblib.load(str(filepath))
         if "PTransformer" in obj.__repr__():
             self.hasFitted = True
