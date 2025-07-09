@@ -1,6 +1,7 @@
 from flask import Flask, request
 from flask_cors import CORS
 import validator
+import swdantic
 
 app = Flask(__name__)
 CORS(app)
@@ -20,11 +21,11 @@ def ping():
 @app.route("/predict",methods=["POST"])
 def predict():
     try:
-        return {"message":{"prediction":{"Frequent_Losers":v.run(request.args)}}}, 200
+        return {"message":{"prediction":{"is_resistance":v.run(request.args)}}}, 200
     except Exception as err:
         return "prediction failed" + str(err), 500
 
 if __name__ == '__main__':
-    v = validator.Validator("scaler.pkl","model.pkl")
+    v = validator.Validator("pkl/scaler.pkl","pkl/model.pkl",swdantic.SWDantic)
     app.run()
     # app.run(debug=True)

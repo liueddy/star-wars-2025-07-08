@@ -1,5 +1,6 @@
+import numpy as np
 import pandas as pd
-from processor import PProcessor
+from server.pprocessor import PProcessor
 import joblib
 import warnings
 from pydantic import BaseModel
@@ -31,21 +32,21 @@ class Validator:
             warnings.warn("this is NOT recommended, to suppress warning add a valid BaseModel")
             return pd.DataFrame.from_dict(uinput,orient='index').transpose().convert_dtypes()
 
-    def run(self, uinput) -> dict:
+    def run(self, uinput) -> np.array:
         v_df = self._uvalidate(uinput)
         t_df = self.pproc.transform(v_df)
-        return {"prediction":self.model.predict(t_df)}
+        return self.model.predict(t_df)
 
 if __name__ == "__main__":
     # create mock model that can return 1
-    class MockModel:
-        def __init__(self,x):
-            self.x=x
-        def predict(self,uinput):
-            return self.x
+    # class MockModel:
+    #     def __init__(self,x):
+    #         self.x=x
+    #     def predict(self,uinput):
+    #         return self.x
         
-    mm = MockModel(1)
-    joblib.dump(mm,"pkl/mockmodel.pkl")
+    # mm = MockModel(1)
+    # joblib.dump(mm,"pkl/mockmodel.pkl")
     
-    v = Validator("pkl/processor.pkl","pkl/mockmodel.pkl")
-    print(v.model.predict(199))
+    v = Validator("pkl/ptransformer.pkl","pkl/mockmodel.pkl")
+    # print(v.model.predict(199))

@@ -25,7 +25,7 @@ class PProcessor:
     def __init__(self,):
         # change this is you need to...
         self.pnum = sklearn.preprocessing.StandardScaler().set_output(transform="pandas")
-        self.pcat = sklearn.preprocessing.OneHotEncoder(sparse_output=False).set_output(transform="pandas")
+        self.pcat = sklearn.preprocessing.OneHotEncoder(drop='first',sparse_output=False).set_output(transform="pandas")
         self.hasFitted = False
         self.pt = None
     
@@ -86,7 +86,7 @@ class PProcessor:
         self.fit(df)
         return self.transform(df)
 
-    def save(self,filepath="processor.pkl"):
+    def save(self,filepath="pkl/ptransformer.pkl"):
         """save to pkl file"""
         assert self.hasFitted
         joblib.dump(self.pt,str(filepath))
@@ -114,7 +114,7 @@ if __name__ == "__main__":
                                 "homeworld"])
     p = PProcessor()
     p.fit(df)
-    p.save("pkl/processor.pkl")
-    pt = p.load("pkl/processor.pkl")
+    p.save("pkl/ptransformer.pkl")
+    pt = p.load("pkl/ptransformer.pkl")
     x = pt.transform(df)
     print(x.tail())

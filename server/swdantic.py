@@ -2,7 +2,6 @@ from pydantic import BaseModel, PositiveInt, NonNegativeInt, NonNegativeFloat
 from typing import Literal
 
 
-a = ["hi","apple"]
 class SWDantic(BaseModel):
     """Validates a user input for the Star Wars API."""
 
