@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import joblib
 
-class Processor:
+class PProcessor:
     """The following class is a processor that handles data preparation both for training
     AND for non-training data.
     - The Processor class handles both numeric and categorical data.
