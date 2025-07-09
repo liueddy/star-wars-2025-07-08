@@ -3,6 +3,7 @@ from pprocessor import PProcessor
 import sklearn.model_selection
 import sklearn.tree
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.linear_model import LogisticRegression
 import matplotlib.pyplot as plt
 import joblib
 
@@ -23,8 +24,6 @@ y_col_name = "empire_or_resistance"
 pproc = PProcessor()
 X = pproc.fit_transform(df.loc[:,df.columns != str(y_col_name)])
 y = pd.DataFrame(df[str(y_col_name)]=="resistance").rename({"empire_or_resistance":"is_rebel"})
-print(y)
-print(type(y))
 pproc.save()
 
 # init predict column
@@ -33,7 +32,6 @@ pproc.save()
 # split to 60-20-20 train-val-test
 def tvt(X,y):
     X_train,X_test,y_train,y_test = sklearn.model_selection.train_test_split(X,      y,      stratify=y,      test_size=0.2)
-    # print(X_train.shape,X_test.shape,y_train.shape,y_test.shape)
     X_train,X_val,y_train,y_val   = sklearn.model_selection.train_test_split(X_train,y_train,stratify=y_train,test_size=0.25)
     return X_train,X_val,X_test,y_train,y_val,y_test
 
@@ -43,6 +41,7 @@ print(X_train.columns)
 
 # init model
 model = DecisionTreeClassifier()
+# model = LogisticRegression()
 
 def train_score(model,y):
     """train then score the model"""

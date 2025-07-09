@@ -14,7 +14,7 @@ function App() {
     setLoading(false)
   }, [homeworld,unitType,feats])
 
-  // ideally define these in a database or something?
+  // ideally define these in a database and call from an api
   const list_homeworld = ['Tatooine', 'Alderaan', 'Naboo', 'Kashyyyk', 
                           'Stewjon', 'Eriadu', 'Corellia', 'Rodia', 
                           'Bestine IV', 'Dagobah', 'Trandosha', 'Socorro', 
