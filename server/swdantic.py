@@ -8,17 +8,16 @@ class SWDantic(BaseModel):
     # valid unit types based on generate_data.py
     unit_type: Literal["stormtrooper", "tie_fighter", "at-st", "x-wing",
             "resistance_soldier", "at-at", "tie_silencer", "unknown"]
-    
 
-    
-    # this kinda does not matter, but if you want to specify, 
+    # this is a placeholder and not used in the model
+    empire_or_resistance:str = "resistance"
+
+    # this likely does not matter, but if you want to specify, 
     # this class will not stop you from inputing.
     location_x: float = 0
     location_y: float = 0
     destination_x: float = 0
-    destination_y: float = 0
-    # this is a placeholder and not used in the model
-    empire_or_resistance:str = "empire" 
+    destination_y: float = 0 
 
     # valid homeworlds based on home_worlds.json
     homeworld: Literal['Tatooine', 'Alderaan', 'Naboo', 'Kashyyyk', 
