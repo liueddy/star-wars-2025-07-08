@@ -79,7 +79,9 @@ function App() {
       </form>
       <p>{JSON.stringify(data, null, 2)}</p>
       <input type='button' value='get feaatures' onClick={() => (fetchFeats())}/>
-      <p>{JSON.stringify(feats, null, 2)}</p>
+      <div>
+        <p>{JSON.stringify(feats, null, 2)}</p>
+      </div>
     </>
   )
 }
