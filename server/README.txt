@@ -12,4 +12,3 @@ List of scripts:
                         Splits data to tvt
                         Fits model, shows acc
                         Saves model to pkl
-
