@@ -6,16 +6,21 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.linear_model import LogisticRegression
 import matplotlib.pyplot as plt
 import joblib
+from pymongo import MongoClient
 
-# create dataframe to train data
-df = pd.read_csv("../troop_movements.csv",
-                 usecols = ["unit_type",
-                            "empire_or_resistance",
-                            "location_x",
-                            "location_y",
-                            "destination_x",
-                            "destination_y",
-                            "homeworld"])
+# import mongo cli
+cli = MongoClient()
+db = cli.swapi2
+col = db["troop_movements"]
+
+# define df from mongo instead of csv
+df = pd.DataFrame(list(col.find({}))).loc[:,["unit_type", 
+                                             "empire_or_resistance",
+                                             "location_x",
+                                             "location_y",
+                                             "destination_x",
+                                             "destination_y",
+                                             "homeworld"]]
 
 # init y_col
 y_col_name = "empire_or_resistance"
