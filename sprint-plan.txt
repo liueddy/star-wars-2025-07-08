@@ -6,6 +6,7 @@ We also found it imperitive to work in different files such that we would not ad
 As such, the plan is:
 
 Tuesday afternoon:
+- Sprint Planning
 - Part 1 - Eddy
 
 Wednesday Morning

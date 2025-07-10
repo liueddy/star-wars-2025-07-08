@@ -7,9 +7,9 @@ List of classes:
                   data and predicts from given pkl files.
 
 List of scripts:
-- train-save-model.py - Processes data from mongo, 
-                        Saves pprocessor to pkl.
-                        Splits data to tvt.
-                        Fits model, shows acc.
-                        Saves model to pkl.
+- train-save-model.py - Processes data from mongo
+                        Saves pprocessor to pkl
+                        Splits data to tvt
+                        Fits model, shows acc
+                        Saves model to pkl
 
