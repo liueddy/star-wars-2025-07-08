@@ -11,6 +11,6 @@ the case that these features will not
 be important.  I fully expect these 
 features have weights nearly zero.
 
-If weights are high, it's very likely
+If these weights are high, it's likely
 the model is overfit and will perform
 poorly on test data.
